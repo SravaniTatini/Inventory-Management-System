@@ -1,6 +1,16 @@
+# Continuous Binary Code Repository - JFROG
+resource "aws_instance" "IMS_jfrog" {
+  ami                    = var.ami
+  instance_type          = var.instance_type
+  key_name               = var.key_name
+  subnet_id              = var.subnet_id_1a
+  vpc_security_group_ids = ["sg-0079d5b752b2c5e99"]
+
 
   #user_data              = file("C:\Users\srava\Desktop\Terraform\Iac-Terraform\Jfrog.sh.txt")
+
   user_data = <<-EOF
+
   #!/bin/bash
   sudo hostnamectl set-hostname "jfrog.inventorymanagementsystem.io"
   echo "`hostname -I | awk '{ print $1}'` `hostname`" >> /etc/hosts
@@ -53,7 +63,29 @@
 
   EOF
 
-  
+  tags = {
+    Name        = "JFrog"
+    Environment = "Dev"
+    ProjectName = "Inventory Management System"
+    ProjectID   = "2024"
+    CreatedBy   = "IaC Terraform"
+  }
+}
+
+# Outputs
+output "jfrog_ami" {
+  value = aws_instance.IMS_jenkins.ami
+}
+
+output "jfrog_public_ip" {
+  value = aws_instance.IMS_jfrog.public_ip
+}
+output "jfrog_private_ip" {
+  value = aws_instance.IMS_jfrog.private_ip
+}
+
+
+
 
 
 

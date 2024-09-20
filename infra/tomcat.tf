@@ -1,5 +1,15 @@
+# Application Server - Apache Tomcat 
+resource "aws_instance" "IMS_tomcat" {
+  ami                    = var.ami
+  instance_type          = var.instance_type
+  key_name               = var.key_name
+  subnet_id              = var.subnet_id_1a
+  vpc_security_group_ids = ["sg-0079d5b752b2c5e99"]
+
   #user_data              = file("C:\Users\srava\Desktop\Terraform\Iac-Terraform\tomcat.sh.txt")
+
   user_data = <<-EOF
+  
   #!/bin/bash
   sudo hostnamectl set-hostname "tomcat.inventorymanagementsystem.io"
   echo "`hostname -I | awk '{ print $1}'` `hostname`" >> /etc/hosts
@@ -34,3 +44,33 @@
 
   EOF
 
+  #To give access to manager and host-manager
+  #1.manager
+  # vi /opt/tomcat/webapps/manager/META-INF/context.xml
+  #give permission as |.* at line 22
+
+
+  #2.host-manager
+  # vi /opt/tomcat/webapps/host-manager/META-INF/context.xml
+  #give permission as |.* at line 22
+
+  tags = {
+    Name        = "tomcat"
+    Environment = "Dev"
+    ProjectName = "Inventory Management System"
+    ProjectID   = "2024"
+    CreatedBy   = "IaC Terraform"
+  }
+}
+
+#Outputs
+output "tomcat_ami" {
+  value = aws_instance.IMS_jenkins.ami
+}
+
+output "tomcat_public_ip" {
+  value = aws_instance.IMS_tomcat.public_ip
+}
+output "tomcat_private_ip" {
+  value = aws_instance.IMS_tomcat.private_ip
+}

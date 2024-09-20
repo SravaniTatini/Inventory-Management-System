@@ -7,7 +7,7 @@ pipeline {
     stages {
          stage('Stage-0 : Static Code Analysis Using SonarQube') { 
            steps {
-                sh 'mvn clean verify sonar:sonar'
+                sh 'mvn clean verify sonar:sonar '
             }
         }
         stage('Stage-1 : Clean') { 
@@ -54,13 +54,13 @@ pipeline {
 
           stage('Stage-9 : Deployment - Deploy a Artifact devops-3.0.0-SNAPSHOT.war file to Tomcat Server') { 
             steps {
-                sh 'curl -u admin:vahin@030821 -T target/**.war "http://13.234.116.70:8080/manager/text/deploy?path=/IMS&update=true"'
+                sh 'curl -u admin:vahin@030821 -T target/**.war "http://13.232.46.228:8080/manager/text/deploy?path=/IMS&update=true"'
             }
         } 
   
           stage('Stage-10 : SmokeTest') { 
             steps {
-                sh 'curl --retry-delay 10 --retry 5 "http://13.234.116.70:8080/IMS"'
+                sh 'curl --retry-delay 10 --retry 5 "http://13.232.46.228:8080/IMS"'
             }
         }
     }

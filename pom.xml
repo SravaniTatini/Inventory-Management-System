@@ -3,8 +3,8 @@
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     
     <modelVersion>4.0.0</modelVersion>
-    <groupId>com.aws.codestar.projecttemplates</groupId>
-    <artifactId>IMSapp</artifactId>
+    <groupId>com.E-commerce</groupId>
+    <artifactId>IMS</artifactId>
     <version>1.1.0</version>
       <!-- <version>1.1.0-snapshot</version> -->
     <packaging>war</packaging>
@@ -18,24 +18,25 @@
         <maven.compiler.target>${java.version}</maven.compiler.target>
 
         <!-- SonarQube -->
-        <sonar.host.url>http://13.232.210.205:9000</sonar.host.url>
-        <sonar.organization>IMS-java-project</sonar.organization>
-        <sonar.projectKey>IMS-java-project</sonar.projectKey>
-        <sonar.login>sqp_100632cb3d6bf75b6170977e70497783984bb1e7</sonar.login>       
+        <sonar.host.url>http://13.234.77.118:9000</sonar.host.url>
+        <sonar.organization>IMS-Java-Project</sonar.organization>
+        <sonar.projectKey>IMS-Java-Project</sonar.projectKey>
+        <sonar.login>sqp_49de9f458d8e55d658009e257e0d131f972a519c</sonar.login>       
     </properties>
+
 
     <distributionManagement>
 
         <repository>
             <id>release</id>
             <name>libs-release-local</name>
-            <url>http://15.206.74.92:8082/artifactory/libs-release-local/</url>
+            <url>http://52.66.208.168:8082/artifactory/libs-release-local/</url>
         </repository>
 
         <snapshotRepository>
             <id>snapshots</id>
             <name>libs-snapshot-local</name>
-            <url>http://15.206.74.92:8082/artifactory/libs-snapshot-local/</url>
+            <url>http://52.66.208.168:8082/artifactory/libs-snapshot-local/</url>
         </snapshotRepository>
 
     </distributionManagement>
@@ -132,12 +133,12 @@
                     <version>3.3.1</version>
                     <configuration>
                         <warSourceDirectory>src/main/webapp</warSourceDirectory>
-                        <warName>IMSapp</warName>
+                        <warName>IMS</warName>
                         <failOnMissingWebXml>false</failOnMissingWebXml>
                     </configuration>
                 </plugin>
             </plugins>
         </pluginManagement>
-        <finalName>IMSapp</finalName>
+        <finalName>IMS</finalName>
     </build>
 </project>

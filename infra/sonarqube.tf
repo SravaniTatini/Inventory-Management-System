@@ -1,4 +1,14 @@
- #user_data              = file("C:\Users\srava\Desktop\Terraform\Iac-Terraform\sonarqube.sh.txt")
+# Continuous Static Code Analysis Tool - SonarQube
+resource "aws_instance" "IMS_sonarqube" {
+  ami                    = var.ami
+  instance_type          = var.sonar_instance_type
+  key_name               = var.key_name
+  subnet_id              = var.subnet_id_1a
+  vpc_security_group_ids = ["sg-0079d5b752b2c5e99"]
+
+
+  #user_data              = file("C:\Users\srava\Desktop\Terraform\Iac-Terraform\sonarqube.sh.txt")
+
   user_data = <<-EOF
   #!/bin/bash
   sudo hostnamectl set-hostname "sonarqube.inventorymanagementsystem.io"
@@ -30,5 +40,25 @@
 
   EOF
 
-  
+
+  tags = {
+    Name        = "SonarQube"
+    Environment = "Dev"
+    ProjectName = "Inventory Management System"
+    ProjectID   = "2024"
+    CreatedBy   = "IaC Terraform"
+  }
+}
+
+# Outputs
+output "sonar_ami" {
+  value = aws_instance.IMS_jenkins.ami
+}
+
+output "sonar_public_ip" {
+  value = aws_instance.IMS_sonarqube.public_ip
+}
+output "sonar_private_ip" {
+  value = aws_instance.IMS_sonarqube.private_ip
+}
 

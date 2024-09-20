@@ -1,4 +1,13 @@
+# Continuous Integration - Jenkins
+resource "aws_instance" "IMS_jenkins" {
+  ami                    = var.ami
+  instance_type          = var.instance_type
+  key_name               = var.key_name
+  subnet_id              = var.subnet_id_1a
+  vpc_security_group_ids = ["sg-0079d5b752b2c5e99"]
+
   #user_data              = file("C:\Users\srava\Desktop\Terraform\Iac-Terraform\jenkins.sh.txt")
+
   user_data = <<-EOF
   #!/bin/bash
   sudo hostnamectl set-hostname "jenkins.inventorymanagementsystem.io"
@@ -20,3 +29,22 @@
   sudo systemctl start jenkins
   EOF
 
+  tags = {
+    Name        = "Jenkins"
+    Environment = "Dev"
+    ProjectName = "Inventory Management System"
+    ProjectID   = "2024"
+    CreatedBy   = "IaC Terraform"
+  }
+}
+
+# Outputs
+output "jenkins_ami" {
+  value = aws_instance.IMS_jenkins.ami
+}
+output "jenkins_public_ip" {
+  value = aws_instance.IMS_jenkins.public_ip
+}
+output "jenkins_private_ip" {
+  value = aws_instance.IMS_jenkins.private_ip
+}
